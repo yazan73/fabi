@@ -1,0 +1,224 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Gender {
+  MALE
+  FEMALE
+}
+
+model User {
+  id              Int               @id @default(autoincrement())
+  name            String
+  lastName        String?
+  gender          Gender
+  bio             String?
+  phone           String
+  birthday        DateTime
+  gallery         Gallery?
+  profileImage    ProfileImage?
+  emailCredential emailCredential[]
+  Media           Media[]
+  ReviewProduct   ReviewProduct[]
+  Cart            Cart[]
+  ProductFavored  ProductFavored[]
+  Address         Address[]
+}
+
+model emailCredential {
+  id         Int     @id @default(autoincrement())
+  email      String
+  password   String
+  code       String?
+  isVeriried Boolean @default(false)
+  user       User    @relation(fields: [userrId], references: [id])
+  userrId    Int
+}
+
+model Address {
+  id          Int     @id @default(autoincrement())
+  name        String
+  country     String
+  city        String
+  description String?
+
+  userId Int
+  user   User @relation(fields: [userId], references: [id])
+}
+
+model Gallery {
+  id     Int     @id @default(autoincrement())
+  userId Int     @unique
+  user   User    @relation(fields: [userId], references: [id])
+  media  Media[]
+}
+
+model ProfileImage {
+  id      Int    @id @default(autoincrement())
+  userId  Int    @unique
+  user    User   @relation(fields: [userId], references: [id])
+  media   Media? @relation(fields: [mediaId], references: [id])
+  mediaId Int?
+}
+
+enum MediaType {
+  IMAGE
+  VIDEO
+  FILE
+}
+
+model Media {
+  id     Int       @id @default(autoincrement())
+  userId Int
+  user   User      @relation(fields: [userId], references: [id])
+  type   MediaType
+  size   Float
+  url    String
+
+  galleryId        Int?
+  gallery          Gallery?          @relation(fields: [galleryId], references: [id])
+  profileImageId   Int?
+  profileImage     ProfileImage[]
+  productCategory  ProductCategory[]
+  brands           Brand[]
+  productGallery   ProductGallery?   @relation(fields: [productGalleryId], references: [id])
+  productGalleryId Int?
+  HomeSlider       HomeSlider[]
+  Product          Product[]
+}
+
+model ProductCategory {
+  id       Int       @id @default(autoincrement())
+  name     String
+  iconId   Int
+  icon     Media     @relation(fields: [iconId], references: [id])
+  products Product[]
+}
+
+model Brand {
+  id       Int       @id @default(autoincrement())
+  name     String
+  logoId   Int
+  logo     Media     @relation(fields: [logoId], references: [id])
+  products Product[]
+  offers   Offer[]
+}
+
+model Product {
+  id             Int              @id @default(autoincrement())
+  name           String
+  description    String?
+  quantity       Int              @default(0)
+  wholesale      Float
+  price          Float
+  brandId        Int
+  brand          Brand            @relation(fields: [brandId], references: [id])
+  productDetails ProductDetails[]
+  productGallery ProductGallery?
+  rate           Float?
+  isNew          Boolean          @default(true)
+
+  mainPhotoId       Int?
+  mainPhoto         Media?           @relation(fields: [mainPhotoId], references: [id])
+  productCategoryId Int
+  productCategory   ProductCategory  @relation(fields: [productCategoryId], references: [id])
+  ReviewProduct     ReviewProduct[]
+  ProductCart       ProductCart[]
+  ProductFavored    ProductFavored[]
+  offers            Offer[]
+}
+
+model ProductDetails {
+  id        Int     @id @default(autoincrement())
+  size      String
+  color     String
+  quantity  Int?
+  wholesale Float?
+  price     Float?
+  productId Int     @unique
+  product   Product @relation(fields: [productId], references: [id])
+}
+
+model ProductGallery {
+  id        Int     @id @default(autoincrement())
+  productId Int     @unique
+  product   Product @relation(fields: [productId], references: [id])
+  isCover   Boolean
+  media     Media[]
+}
+
+model ReviewProduct {
+  id      Int  @id @default(autoincrement())
+  ownerId Int
+  owner   User @relation(fields: [ownerId], references: [id])
+
+  productId   Int
+  product     Product @relation(fields: [productId], references: [id])
+  description String?
+  rate        Int
+}
+
+enum CartStatus {
+  INPROGRESS
+  REJECTED
+  ONWAY
+  DELIVERED
+}
+
+model Cart {
+  id           Int           @id @default(autoincrement())
+  number       Int
+  name         String?
+  totalPrice   Float
+  status       CartStatus    @default(INPROGRESS)
+  userId       Int
+  user         User          @relation(fields: [userId], references: [id])
+  productCarts ProductCart[]
+}
+
+model ProductCart {
+  id Int @id @default(autoincrement())
+
+  cartId    Int
+  cart      Cart    @relation(fields: [cartId], references: [id])
+  productId Int
+  product   Product @relation(fields: [productId], references: [id])
+
+  quantity Int
+}
+
+model ProductFavored {
+  id        Int     @id @default(autoincrement())
+  userId    Int
+  user      User    @relation(fields: [userId], references: [id])
+  productId Int
+  product   Product @relation(fields: [productId], references: [id])
+}
+
+model Offer {
+  id           Int       @id @default(autoincrement())
+  name         String?
+  description  String?
+  percentOffer Float
+  brandId      Int?
+  expiryDate   DateTime
+  brand        Brand?    @relation(fields: [brandId], references: [id])
+  products     Product[]
+}
+
+model HomeSlider {
+  id            Int     @id @default(autoincrement())
+  title         String
+  subTitle      String?
+  buttonContent String
+  media         Media?  @relation(fields: [mediaId], references: [id])
+  mediaId       Int?
+}
