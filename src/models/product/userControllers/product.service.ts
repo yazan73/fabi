@@ -10,7 +10,7 @@ import { Product } from '../dto/product.dto';
 export class ProductService {
   constructor(private prisma: PrismaService) {}
 
-  async getNewProducts(prop: { pagination: Pagination; user: User }) {
+  async getNewProducts(prop: { pagination: Pagination; }) {
     return (
       await this.prisma.product.findMany({
         where: {
@@ -18,7 +18,7 @@ export class ProductService {
         },
         select: {
           ...productSelectValidator(),
-          ProductFavored: { where: { userId: prop.user.id } },
+          // ProductFavored: { where: { userId: prop.user.id } },
         },
         skip: prop.pagination.skip,
         take: prop.pagination.limit,

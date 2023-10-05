@@ -8,6 +8,7 @@ import { HomeSliderModule } from 'src/models/home-slider/home-slider.module';
 import { MediaModule } from 'src/models/media/media.module';
 import { ProductModule } from 'src/models/product/product.module';
 import { UserModule } from 'src/models/user/user.module';
+import { AppController } from './app.controller';
 
 @Module({
   imports: [
@@ -21,7 +22,7 @@ import { UserModule } from 'src/models/user/user.module';
     MediaModule,
     CategoryModule
   ],
-  controllers: [],
+  controllers: [AppController],
   providers: [],
 })
 export class AppModule {}

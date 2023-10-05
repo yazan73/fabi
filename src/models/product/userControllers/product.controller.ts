@@ -23,8 +23,12 @@ export class ProductController {
 
 
   @Get('new')
-  async getNewProduct(@ReqUser() user: User, @Query() pagination:Pagination){
-    return await this.productService.getNewProducts({pagination,user})
+  async getNewProduct(
+    // @ReqUser() user: User,
+     @Query() pagination:Pagination){
+    return await this.productService.getNewProducts({pagination,
+      // user
+    })
   }
   
   @Get(':id')

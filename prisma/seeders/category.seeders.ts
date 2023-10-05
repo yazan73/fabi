@@ -11,6 +11,30 @@ export async function categorySeeder(prop:{prisma:PrismaService}){
             name: 'رجالي',
             iconId: 1,
         },
-      })
+    })
+
+    await prop.prisma.productCategory.upsert({
+        where:{
+            id:2
+        },
+        update: {},
+        create: {
+            id:2,
+            name: 'نسائي',
+            iconId: 8,
+        },
+    })
+
+    await prop.prisma.productCategory.upsert({
+        where:{
+            id:3
+        },
+        update: {},
+        create: {
+            id:3,
+            name: 'ولادي',
+            iconId: 9,
+        },
+    })
       
 }
