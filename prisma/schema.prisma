@@ -94,6 +94,7 @@ model Media {
   productGalleryId Int?
   HomeSlider       HomeSlider[]
   Product          Product[]
+  ProductDetails   ProductDetails[]
 }
 
 model ProductCategory {
@@ -137,14 +138,27 @@ model Product {
   offers            Offer[]
 }
 
+enum Size {
+  XL
+  XXL
+  XXXL
+  XXXXL
+  XXXXXL
+  S
+  M
+  L
+}
+
 model ProductDetails {
   id        Int     @id @default(autoincrement())
-  size      String
+  size      Size[]
   color     String
+  mediaId   Int
+  media     Media   @relation(fields: [mediaId], references: [id])
   quantity  Int?
   wholesale Float?
   price     Float?
-  productId Int     @unique
+  productId Int    
   product   Product @relation(fields: [productId], references: [id])
 }
 

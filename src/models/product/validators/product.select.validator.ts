@@ -28,6 +28,9 @@ export function productSelectValidator() {
             quantity:true,
             wholesale:true,
             price:true,
+            media:{
+                select: selectMediaValidator()
+            }
         }
     },
     productGallery:{

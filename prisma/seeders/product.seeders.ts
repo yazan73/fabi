@@ -16,6 +16,22 @@ export async function productSeeder(prop:{prisma:PrismaService}){
             productCategoryId: 1,
             quantity: 90,
             mainPhotoId: 10,
+            productDetails:{
+                createMany:{
+                    data:[
+                    {
+                        color: "RED",
+                        size: ['L',"M","XXXL"],
+                        mediaId: 10
+                    },
+                    {
+                        color: "BLUE",
+                        size: ['L',"S","XXXL",'XXXXXL'],
+                        mediaId: 10 
+                    }
+                ]
+                }
+            }
         },
       })
 
@@ -33,9 +49,30 @@ export async function productSeeder(prop:{prisma:PrismaService}){
             rate: 2,
             productCategoryId: 1,
             quantity: 90,
-            mainPhotoId: 11
-
-        },
+            mainPhotoId: 11,
+            productDetails:{
+                createMany:{
+                    data:[
+                    {
+                        color: "YELLOW",
+                        size: ['M',"XL","XXXL",'S'],
+                        mediaId: 11
+                    },
+                    {
+                        color: "BROWN",
+                        size: ['M',"XL","XXXL",'S'],
+                        mediaId: 11
+                    },
+                    {
+                        color: "BLUE",
+                        size: ['L',"S","XXXXL",'XXXXXL'],
+                        mediaId: 11
+                    }
+                ]
+                }
+            
+        }
+    }
       })
 
       await prop.prisma.product.upsert({
@@ -52,7 +89,23 @@ export async function productSeeder(prop:{prisma:PrismaService}){
             rate: 2,
             productCategoryId: 1,
             quantity: 90,
-            mainPhotoId: 12
+            mainPhotoId: 12,
+            productDetails:{
+                createMany:{
+                    data:[
+                    {
+                        color: "BLACK",
+                        size: ['M',"S","XXL"],
+                        mediaId: 12
+                    },
+                    {
+                        color: "WHITE",
+                        size: ['L',"S","M","XXXL",'XXXXXL'],
+                        mediaId: 12
+                    }
+                ]
+                }
+            }
         },
       })
       
@@ -71,6 +124,27 @@ export async function productSeeder(prop:{prisma:PrismaService}){
             productCategoryId: 2,
             quantity: 90,
             mainPhotoId: 13,
+            productDetails:{
+                createMany:{
+                    data:[
+                    {
+                        color: "RED",
+                        size: ['L',"M","XL",'S'],
+                        mediaId: 13
+                    },
+                    {
+                        color: "PINK",
+                        size: ['L',"S","XXXL",'XXXXXL','M'],
+                        mediaId: 13 
+                    },
+                    {
+                        color: "GREEN",
+                        size: ['L',"S",'M'],
+                        mediaId: 13 
+                    }
+                ]
+                }
+            }
         },
       })
 
@@ -88,7 +162,23 @@ export async function productSeeder(prop:{prisma:PrismaService}){
             rate: 2,
             productCategoryId: 2,
             quantity: 90,
-            mainPhotoId: 14
+            mainPhotoId: 14,
+            productDetails:{
+                createMany:{
+                    data:[
+                    {
+                        color: "RED",
+                        size: ['L',"S","XXXL"],
+                        mediaId: 14
+                    },
+                    {
+                        color: "LIGHTBLUE",
+                        size: ['L',"S",'XXXXXL'],
+                        mediaId: 14
+                    }
+                ]
+                }
+            }
 
         },
       })
@@ -107,7 +197,23 @@ export async function productSeeder(prop:{prisma:PrismaService}){
             rate: 2,
             productCategoryId: 2,
             quantity: 90,
-            mainPhotoId: 15
+            mainPhotoId: 15,
+            productDetails:{
+                createMany:{
+                    data:[
+                    {
+                        color: "YELLOW",
+                        size: ['L',"M","XXXL"],
+                        mediaId: 15
+                    },
+                    {
+                        color: "BLUE",
+                        size: ['L',"S","XXXL",'XXXXXL'],
+                        mediaId: 15
+                    }
+                ]
+                }
+            }
         },
       })
 
@@ -126,6 +232,22 @@ export async function productSeeder(prop:{prisma:PrismaService}){
             productCategoryId: 3,
             quantity: 90,
             mainPhotoId: 16,
+            productDetails:{
+                createMany:{
+                    data:[
+                    {
+                        color: "YELLOW",
+                        size: ['L',"M","XXXL"],
+                        mediaId: 16
+                    },
+                    {
+                        color: "BLUE",
+                        size: ['L',"S","XXXL",'XXXXXL'],
+                        mediaId: 16
+                    }
+                ]
+                }
+            }
         },
       })
 
@@ -143,7 +265,23 @@ export async function productSeeder(prop:{prisma:PrismaService}){
             rate: 2,
             productCategoryId: 3,
             quantity: 90,
-            mainPhotoId: 17
+            mainPhotoId: 17,
+            productDetails:{
+                createMany:{
+                    data:[
+                    {
+                        color: "YELLOW",
+                        size: ['L',"M","XXXL"],
+                        mediaId: 17
+                    },
+                    {
+                        color: "BLUE",
+                        size: ['L',"S","XXXL",'XXXXXL'],
+                        mediaId: 17
+                    }
+                ]
+                }
+            }
 
         },
       })
@@ -162,7 +300,23 @@ export async function productSeeder(prop:{prisma:PrismaService}){
             rate: 2,
             productCategoryId: 3,
             quantity: 90,
-            mainPhotoId: 18
+            mainPhotoId: 18,
+            productDetails:{
+                createMany:{
+                    data:[
+                    {
+                        color: "YELLOW",
+                        size: ['L',"M","XXXL"],
+                        mediaId: 18
+                    },
+                    {
+                        color: "BLUE",
+                        size: ['L',"S","XXXL",'XXXXXL'],
+                        mediaId: 18
+                    }
+                ]
+                }
+            }
         },
       })
 }

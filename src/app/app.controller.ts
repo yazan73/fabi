@@ -13,6 +13,7 @@ export class AppController {
 
   @Get('delete')
   async getDelete(){
+    await this.prisma.productDetails.deleteMany({})
     await this.prisma.product.deleteMany({})
     await this.prisma.brand.deleteMany({})
     await this.prisma.productCategory.deleteMany({})
