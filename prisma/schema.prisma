@@ -190,13 +190,14 @@ enum CartStatus {
 
 model Cart {
   id           Int           @id @default(autoincrement())
-  number       Int
+  number       String
   name         String?
-  totalPrice   Float
+  totalPrice   Float?
   status       CartStatus    @default(INPROGRESS)
   userId       Int
   user         User          @relation(fields: [userId], references: [id])
   productCarts ProductCart[]
+  createdAt    DateTime @default(now())
 }
 
 model ProductCart {
@@ -208,6 +209,9 @@ model ProductCart {
   product   Product @relation(fields: [productId], references: [id])
 
   quantity Int
+  productPrice Float?
+  size Size?
+  color String?
 }
 
 model ProductFavored {

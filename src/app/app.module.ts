@@ -9,6 +9,7 @@ import { MediaModule } from 'src/models/media/media.module';
 import { ProductModule } from 'src/models/product/product.module';
 import { UserModule } from 'src/models/user/user.module';
 import { AppController } from './app.controller';
+import { CartModule } from 'src/models/cart/cart.module';
 
 @Module({
   imports: [
@@ -20,7 +21,8 @@ import { AppController } from './app.controller';
     ProductModule,
     HomeSliderModule,
     MediaModule,
-    CategoryModule
+    CategoryModule,
+    CartModule
   ],
   controllers: [AppController],
   providers: [],
