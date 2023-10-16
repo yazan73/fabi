@@ -2,6 +2,7 @@ import {
   CanActivate,
   ExecutionContext,
   Injectable,
+  Logger,
   SetMetadata,
   UnauthorizedException,
   UseFilters,
@@ -10,7 +11,7 @@ import { Reflector } from '@nestjs/core';
 import { JwtService } from '@nestjs/jwt';
 import { Request } from 'express';
 import { JwtValidatorService } from './jwt-validator.service';
-
+import { User } from '@prisma/client';
 
 export const ALLOW_UNAUTHORIZED_REQUEST = 'ALLOW_UNAUTHORIZED_REQUEST';
 
@@ -32,27 +33,25 @@ export class JwtAuthGuard {
           context.getHandler(),
           context.getClass(),
         ]);
-      if (allowUnauthorizedRequest) return true;
-
-      return true;
       const request = context.switchToHttp().getRequest<Request>();
-
       let token = request.headers.authorization;
+      let user: User;
 
+      if (token) {
+        token = token.replace('Bearer', '').trim();
+        const payload = this.jwtService.verify(token);
+        user = await this.jwtValidatorService.validate(payload);
+        request['user'] = user;
+      }
+
+      if (allowUnauthorizedRequest) return true;
       if (!token) throw new UnauthorizedException();
-
-      token = token.replace('Bearer', '').trim();
-
-      const payload = this.jwtService.verify(token);
-
-      const user = await this.jwtValidatorService.validate(payload);
-
-      if (!user ) throw new UnauthorizedException();
-
-      request['user'] = user;
-
+      if (!user) throw new UnauthorizedException();
+      
       return user;
+
     } catch (error) {
+      Logger.log(error);
       throw new UnauthorizedException();
     }
   }

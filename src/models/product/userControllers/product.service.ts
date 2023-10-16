@@ -10,16 +10,13 @@ import { Product } from '../dto/product.dto';
 export class ProductService {
   constructor(private prisma: PrismaService) {}
 
-  async getNewProducts(prop: { pagination: Pagination; }) {
+  async getNewProducts(prop: { pagination: Pagination, user:User }) {
     return (
       await this.prisma.product.findMany({
         where: {
           isNew: true,
         },
-        select: {
-          ...productSelectValidator(),
-          // ProductFavored: { where: { userId: prop.user.id } },
-        },
+        select: productSelectValidator({userId:prop?.user?.id}),
         skip: prop.pagination.skip,
         take: prop.pagination.limit,
       })
@@ -27,12 +24,12 @@ export class ProductService {
   }
 
   async getProductById(prop: { productId: number }) {
-    return await this.prisma.product.findFirst({
+    return new Product (  await this.prisma.product.findFirst({
       where: {
         id: prop.productId,
       },
       select: productSelectValidator(),
-    });
+    }));
   }
 
   async getProductByRate(pagination?: Pagination) {
@@ -46,7 +43,7 @@ export class ProductService {
   }
 
   async getFilteredProducts(prop: { productFiltersKeys: ProductFiltersKeys }) {
-    return await this.prisma.product.findMany({
+    return (await this.prisma.product.findMany({
       where: {
         AND: [
           {
@@ -64,7 +61,7 @@ export class ProductService {
       select: productSelectValidator(),
       skip: prop.productFiltersKeys?.skip,
       take: prop.productFiltersKeys?.limit,
-    });
+    })).map(product => new Product(product))
   }
 
   async productsFavored(prop: { userId: number; pagination: Pagination }) {
@@ -77,7 +74,7 @@ export class ProductService {
         },
         select: {
           product: {
-            select: productSelectValidator(),
+            select: productSelectValidator({userId:prop.userId}),
           },
         },
       })

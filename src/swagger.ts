@@ -12,7 +12,7 @@ function createDocument(app: INestApplication) {
     const config = new DocumentBuilder()
         .setTitle(`Fabi ${ENV}`)
         .setVersion('1.0')
-        // .addBearerAuth()
+        .addBearerAuth()
         .build();
     const document = SwaggerModule.createDocument(app, config);
     return document;

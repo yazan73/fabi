@@ -2,7 +2,7 @@ import { Prisma } from '@prisma/client';
 import { selectMediaValidator } from 'src/models/media/validators/select-media.validator';
 
 
-export function productSelectValidator() {
+export function productSelectValidator(prop?: {userId?:number | undefined}) {
   return Prisma.validator<Prisma.ProductSelect>()({
     id:true,
     name:true,
@@ -58,6 +58,7 @@ export function productSelectValidator() {
             }
         }
     },
-    offers:true
+    offers:true,
+    ProductFavored: { where: { userId: prop.userId ? prop.userId : 1000  } },
   });
 }

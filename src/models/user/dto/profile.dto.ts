@@ -18,7 +18,6 @@ export class UserProfile extends User {
     email:string
 
      constructor(user){
-        console.log(user);
         super(user);
         
         this.email = user.emailCredential[0].email
