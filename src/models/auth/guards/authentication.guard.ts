@@ -1,17 +1,18 @@
 import {
-  CanActivate,
   ExecutionContext,
   Injectable,
   Logger,
   SetMetadata,
   UnauthorizedException,
-  UseFilters,
 } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { JwtService } from '@nestjs/jwt';
 import { Request } from 'express';
 import { JwtValidatorService } from './jwt-validator.service';
 import { User } from '@prisma/client';
+
+
+// NEED REFACTORING
 
 export const ALLOW_UNAUTHORIZED_REQUEST = 'ALLOW_UNAUTHORIZED_REQUEST';
 
