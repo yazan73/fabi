@@ -21,12 +21,6 @@ export class UserRegister extends LoginDto {
     @IsEnum(Gender)
     gender: Gender
     
-    @ApiProperty({type:String, default:'I\'m Here to work'})
-    @IsString()
-    @Length(10,280)
-    @IsOptional()
-    bio?:string
-
     @ApiProperty({type:String, default:'963912343533'})
     @IsString()
     @IsNumberString()

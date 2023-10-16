@@ -24,13 +24,7 @@ export class UpdateUserDto {
     @IsDate()
     @Type(()=>Date)
     birthday:Date
-
-    @ApiProperty({type:String, default:'I\'m Here to work'})
-    @IsString()
-    @Length(10,280)
-    @IsOptional()
-    bio?:string
-
+    
     @ApiProperty({type:String, default:'963912343533'})
     @IsString()
     @Length(12,12)

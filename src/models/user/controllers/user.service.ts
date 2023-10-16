@@ -33,7 +33,6 @@ export class UserService {
                 lastName: args.updateUserDto.lastName,
                 birthday: args.updateUserDto.birthday,
                 gender: args.updateUserDto.gender,
-                bio:args.updateUserDto.bio,
                 phone: args.updateUserDto.phone
             }
         })

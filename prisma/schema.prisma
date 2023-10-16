@@ -21,7 +21,6 @@ model User {
   name            String
   lastName        String?
   gender          Gender
-  bio             String?
   phone           String
   birthday        DateTime
   gallery         Gallery?

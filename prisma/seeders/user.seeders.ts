@@ -14,7 +14,6 @@ export async function userSeeder(prop:{prisma:PrismaService,passwordService:Pass
             gender: Gender.MALE,
             name: 'Kareem',
             phone: '09223131',
-            bio: 'Im here',
             emailCredential:{
               create:{
                 email: 'kareem@fabi.com',

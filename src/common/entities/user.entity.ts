@@ -22,12 +22,6 @@ export class User {
     @ApiProperty({enum:Gender,default:Gender.MALE})
     @IsEnum(Gender)
     gender: Gender
-    
-    @ApiProperty({type:String, default:'I\'m Here to work'})
-    @IsString()
-    @Length(10,280)
-    @IsOptional()
-    bio?:string
 
     @ApiProperty({type:String, default:'963912343533'})
     @IsString()
@@ -45,7 +39,6 @@ export class User {
     rate?:number | null
 
     constructor(user){
-        this.bio = user.bio
         this.name = user.name
         this.lastName = user.lastName
         this.gender = user.gender

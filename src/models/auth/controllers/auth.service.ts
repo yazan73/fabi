@@ -64,7 +64,6 @@ export class AuthService {
               lastName: user.lastName,
               gender: user.gender,
               phone: user.phone,
-              bio: user.bio,
               birthday: user.birthday,
               emailCredential: {
                 create: {
