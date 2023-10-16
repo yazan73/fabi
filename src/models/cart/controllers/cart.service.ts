@@ -46,7 +46,7 @@ export class CartService {
   async findOne(user:User, id: number) {
     return await this.prisma.cart.findFirst({
       where:{
-        id: id
+        AND:[{id: id},{userId:user.id}] 
       },
       select: cartSelectValidator()
     })

@@ -5,6 +5,7 @@ import { productSeeder } from './seeders/product.seeders'
 import { categorySeeder } from './seeders/category.seeders'
 import { brandSeeder } from './seeders/brand.seeders'
 import { mediaSeeder } from './seeders/media.seeders'
+import { offerSeeder } from './seeders/offer.seeders'
 const prisma = new PrismaService()
 const passwordService = new PasswordService()
 export async function main() {
@@ -14,6 +15,7 @@ export async function main() {
   await categorySeeder({prisma})
   await brandSeeder({prisma})
   await productSeeder({prisma})
+  await offerSeeder({prisma})
 }
 main()
   .then(async () => {

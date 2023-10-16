@@ -1,6 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger"
 import { Gender } from "@prisma/client"
-import { IsDate, IsEmail, IsEnum, IsOptional, IsString, Length } from "class-validator"
+import { IsDate, IsEmail, IsEnum, IsNumberString, IsOptional, IsString, Length } from "class-validator"
 import { LoginDto } from "./login.dto"
 import { Type } from "class-transformer"
 
@@ -29,7 +29,7 @@ export class UserRegister extends LoginDto {
 
     @ApiProperty({type:String, default:'963912343533'})
     @IsString()
-    @Length(12,12)
+    @IsNumberString()
     phone:string
 
     @ApiProperty({type:Date})
