@@ -10,6 +10,7 @@ import { ProductModule } from 'src/models/product/product.module';
 import { UserModule } from 'src/models/user/user.module';
 import { AppController } from './app.controller';
 import { CartModule } from 'src/models/cart/cart.module';
+import { OfferModule } from 'src/models/offer/offer.module';
 
 @Module({
   imports: [
@@ -22,7 +23,8 @@ import { CartModule } from 'src/models/cart/cart.module';
     HomeSliderModule,
     MediaModule,
     CategoryModule,
-    CartModule
+    CartModule,
+    OfferModule
   ],
   controllers: [AppController],
   providers: [],
