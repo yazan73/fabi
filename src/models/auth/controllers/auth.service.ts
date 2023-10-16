@@ -56,7 +56,7 @@ export class AuthService {
       })
       .then(async (emailCredential) => {
         if (emailCredential)
-          throw new BadRequestException('email already exist!!');
+          throw new BadRequestException('البريد الالكتروني مستخدم حاليا.');
         return this.prisma.user
           .create({
             data: {
