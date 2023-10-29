@@ -27,14 +27,15 @@ export class MediaService {
     const url = this.constructUrlForFile(file.filename);
     return await this.prisma.media.create({
       data: {
+        id: await this.prisma.media.count() + 1,
         url:url,
         size:file.size,
         type: MediaType.IMAGE,
-        user:{
-          connect:{
-            id:user.id
-          }
-        }
+        // user:{
+        //   connect:{
+        //     id:user?.id ?? 0
+        //   }
+        // }
       },
     });
   }

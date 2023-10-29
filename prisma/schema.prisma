@@ -2,7 +2,7 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+  provider      = "prisma-client-js"
   binaryTargets = ["native", "rhel-openssl-1.0.x"]
 }
 
@@ -77,8 +77,8 @@ enum MediaType {
 
 model Media {
   id     Int       @id @default(autoincrement())
-  userId Int
-  user   User      @relation(fields: [userId], references: [id])
+  userId Int?
+  user   User?     @relation(fields: [userId], references: [id])
   type   MediaType
   size   Float
   url    String
@@ -157,7 +157,7 @@ model ProductDetails {
   quantity  Int?
   wholesale Float?
   price     Float?
-  productId Int    
+  productId Int
   product   Product @relation(fields: [productId], references: [id])
 }
 
@@ -196,7 +196,7 @@ model Cart {
   userId       Int
   user         User          @relation(fields: [userId], references: [id])
   productCarts ProductCart[]
-  createdAt    DateTime @default(now())
+  createdAt    DateTime      @default(now())
 }
 
 model ProductCart {
@@ -207,10 +207,10 @@ model ProductCart {
   productId Int
   product   Product @relation(fields: [productId], references: [id])
 
-  quantity Int
+  quantity     Int
   productPrice Float?
-  size Size?
-  color String?
+  size         Size?
+  color        String?
 }
 
 model ProductFavored {

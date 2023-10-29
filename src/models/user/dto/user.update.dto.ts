@@ -16,6 +16,11 @@ export class UpdateUserDto {
     @IsOptional()
     lastName?:string
 
+    @ApiProperty({type:String})
+    @IsEmail()
+    @IsString()
+    email: string
+    
     @ApiProperty({enum:Gender,default:Gender.MALE})
     @IsEnum(Gender)
     gender: Gender

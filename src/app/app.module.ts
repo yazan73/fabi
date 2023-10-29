@@ -11,9 +11,14 @@ import { UserModule } from 'src/models/user/user.module';
 import { AppController } from './app.controller';
 import { CartModule } from 'src/models/cart/cart.module';
 import { OfferModule } from 'src/models/offer/offer.module';
+import { join } from 'path';
+import { ServeStaticModule } from '@nestjs/serve-static';
 
 @Module({
   imports: [
+    ServeStaticModule.forRoot({
+      rootPath: './public',
+    }),
     AuthModule,
     UserModule,
     PrismaModule,

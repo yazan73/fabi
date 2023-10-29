@@ -31,10 +31,10 @@ export class UserController {
     description: 'user profile',
     type: UserProfile,
   })
-  @Get('profile/:userId')
-  userProfile(@Param('userId') userId: string) {
+  @Get('profile')
+  userProfile(@ReqUser('user') user: User) {
     return this.userService
-      .profile(+userId)
+      .profile(user.id)
       .then((user) => {
         return user;
       })

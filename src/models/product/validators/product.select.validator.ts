@@ -59,6 +59,6 @@ export function productSelectValidator(prop?: {userId?:number | undefined}) {
         }
     },
     offers:true,
-    ProductFavored: { where: { userId: prop.userId ? prop.userId : 1000  } },
+    ProductFavored: { where: { userId: prop?.userId ? prop.userId : 1000  } },
   });
 }

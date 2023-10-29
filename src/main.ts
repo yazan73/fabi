@@ -5,6 +5,7 @@ import { NestExpressApplication } from '@nestjs/platform-express';
 import { ConfigService } from '@nestjs/config';
 import { PrismaService } from './common/prisma/services/prisma.service';
 import { swagger } from './swagger';
+import { join } from 'path';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
@@ -17,6 +18,9 @@ async function bootstrap() {
   );
 
   swagger(app);
+
+  
+  app.useStaticAssets(join(__dirname, '../../'), { prefix: '/public/' });
 
   app.get(PrismaService).enableShutdownHooks(app);
   const config = app.get(ConfigService);

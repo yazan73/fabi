@@ -19,6 +19,7 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { ReqUser } from 'src/models/auth/decorators/getUser.decorator';
 import { User } from 'src/common/entities/user.entity';
 import { AllowUnAuthorizedRequest } from 'src/models/auth/guards/authentication.guard';
+import { UserNotRequired } from 'src/models/auth/decorators/getUser.needless.decorator';
 
 // @ApiBearerAuth()
 @AllowUnAuthorizedRequest()
@@ -57,7 +58,7 @@ export class MediaController {
         }),
     )
     file: Express.Multer.File,
-    @ReqUser() user:User
+    @UserNotRequired() user:User
   ) {
     const image = await this.mediaService.uploadImage(file,user);
 

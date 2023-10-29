@@ -24,19 +24,36 @@ export class UserService {
     }
 
     async update(args: {userId:number,updateUserDto:UpdateUserDto}):Promise<UserProfile>{
-        await this.prisma.user.update({
+        let user= await this.prisma.user.update({
             where:{
                 id:args.userId
             },
+            select:{emailCredential:true},
             data:{
                 name: args.updateUserDto.name,
                 lastName: args.updateUserDto.lastName,
                 birthday: args.updateUserDto.birthday,
                 gender: args.updateUserDto.gender,
-                phone: args.updateUserDto.phone
+                phone: args.updateUserDto.phone,
+                profileImage:{
+                    update:{
+                        media:{
+                            connect:{
+                                id: args.updateUserDto.mediaId
+                            }
+                        }
+                    }
+                }
             }
         })
-        
+        await this.prisma.emailCredential.update({
+            where:{
+                id:user.emailCredential[0].id
+            },
+            data:{
+                email:args.updateUserDto.email
+            }
+        })
         return await this.profile(args.userId)
     }
 
