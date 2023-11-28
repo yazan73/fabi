@@ -19,6 +19,9 @@ export async function userSeeder(prop:{prisma:PrismaService,passwordService:Pass
                 email: 'kareem@fabi.com',
                 password: await prop.passwordService.hash('password')
               }
+            },
+            profileImage:{
+              create:{}
             }
         },
       })
