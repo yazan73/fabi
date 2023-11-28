@@ -7,7 +7,7 @@ export class GenerateUniqueNumberService {
     separator = '-'
     
     generate(prop:{type:GenerateNumberType}){
-        return prop + this.separator + this.getNewNumber()
+        return prop.type + this.separator + this.getNewNumber()
     }
 
     getNewNumber() {

@@ -36,12 +36,16 @@ export class UserService {
                 gender: args.updateUserDto.gender,
                 phone: args.updateUserDto.phone,
                 profileImage:{
-                    update:{
+                    upsert:{
+                        create:{
+                        },
+                        update:{
                         media:{
                             connect:{
                                 id: args.updateUserDto.mediaId
                             }
                         }
+                    }
                     }
                 }
             }

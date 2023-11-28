@@ -1,4 +1,5 @@
 export enum GenerateNumberType {
     CART = 'cart',
-    INVOICE = 'invoice'
+    INVOICE = 'invoice',
+    ORDER = 'order'
 }

@@ -22,6 +22,10 @@ export class ProductsInCart {
     @IsString()
     @IsOptional()
     color?: string
+
+    @ApiProperty({type: Number})
+    @IsNumber()
+    price: number
 }
 
 
@@ -31,4 +35,8 @@ export class CreateCartDto {
     @ValidateNested()
     @IsArray()
     products: ProductsInCart[]
+
+    @ApiProperty({type:Number})
+    @IsNumber()
+    addressId: number
 }

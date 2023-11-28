@@ -39,6 +39,7 @@ export class User {
     rate?:number | null
 
     constructor(user){
+        this.id = user.id
         this.name = user.name
         this.lastName = user.lastName
         this.gender = user.gender

@@ -6,7 +6,8 @@ import { User } from 'src/common/entities/user.entity';
 import { GenerateUniqueNumberService } from '../service/generateUniqueNumber.service';
 import { GenerateNumberType } from '../entities/GenerateNumberType.entity';
 import { CartStatus } from '@prisma/client';
-import { cartSelectValidator } from '../validators/myCart.select.validator';
+import { allCartSelectValidator, cartSelectValidator } from '../validators/myCart.select.validator';
+import { addressSelectValidator } from 'src/models/user/validators/address.validator';
 
 @Injectable()
 export class CartService {
@@ -15,23 +16,35 @@ export class CartService {
     private generateUniqueNumberService: GenerateUniqueNumberService,
   ) {}
 
+  calculateTotalPrice(createCartDto: CreateCartDto) {
+    return createCartDto.products.reduce((current,product)=>current + product.price,0)
+  }
+
   async create(user: User, createCartDto: CreateCartDto) {
-    await this.prisma.cart.create({
-      data: {
-        user: {
-          connect: { id: user.id },
-        },
-        number: this.generateUniqueNumberService.generate({
-          type: GenerateNumberType.CART,
-        }),
-        productCarts: {
-          createMany: {
-            data: createCartDto.products,
+    // return await this.prisma.cart.deleteMany({where:{AND:[{ userId:user.id}, {status: CartStatus.INPROGRESS}] }}).then( async () => {
+      return await this.prisma.cart.create({
+        data: {
+          totalPrice: this.calculateTotalPrice(createCartDto),
+          address: {
+            connect:{
+              id: createCartDto.addressId
+            }
           },
+          user: {
+            connect: { id: user.id },
+          },
+          number: this.generateUniqueNumberService.generate({
+            type: GenerateNumberType.ORDER,
+          }),
+          productCarts: {
+            createMany: {
+              data: createCartDto.products,
+            },
+          },
+          status: CartStatus.INPROGRESS,
         },
-        status: CartStatus.INPROGRESS,
-      },
-    });
+      });
+  // })
   }
 
   async findAllMyCart(user: User, status: CartStatus) {
@@ -49,6 +62,25 @@ export class CartService {
         AND:[{id: id},{userId:user.id}] 
       },
       select: cartSelectValidator()
+    })
+  }
+
+  async findCurrent(user:User) {
+    return await this.prisma.cart.findFirst({
+      where:{
+        AND:[{status: CartStatus.INPROGRESS},{userId:user.id}] 
+      },
+      select: cartSelectValidator()
+    })
+  }
+
+  async getAllCarts(user:User) {
+    return await this.prisma.cart.findMany({
+      where:{
+        AND:[{userId:user.id}] 
+      },
+      
+      select: allCartSelectValidator()
     })
   }
 

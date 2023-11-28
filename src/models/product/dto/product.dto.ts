@@ -1,3 +1,4 @@
+import { Media } from "@prisma/client"
 import { GeneralBrand } from "src/models/brand/dto/getAllBrand.dto"
 
 export class Product {
@@ -15,6 +16,7 @@ export class Product {
     ProductFavored
     isFavorite: boolean
     hasOffer: boolean
+    mainPhoto: Media
 
     constructor(product) {
         this.id = product.id
@@ -30,6 +32,7 @@ export class Product {
         this.productCategory = product.productCategory
         this.isFavorite = false
         this.hasOffer = false
+        this.mainPhoto = product.mainPhoto
         if(product?.Offers?.length > 0) 
             this.hasOffer = true
         if(product?.ProductFavored?.length > 0)

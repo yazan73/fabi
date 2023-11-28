@@ -11,6 +11,6 @@ export function productCartSelectValidator() {
     color: true,
     size: true,
     quantity: true,
-    productPrice:true
+    price:true
   });
 }

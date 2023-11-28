@@ -21,6 +21,12 @@ import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 export class CartController {
   constructor(private readonly cartService: CartService) {}
 
+  
+  @Get('all')
+  async getAllCartCurrent(@ReqUser() user:User) {
+    return await this.cartService.getAllCarts(user);
+  }
+
   @Post()
   async create(@ReqUser() user: User, @Body() createCartDto: CreateCartDto) {
     return  await this.cartService.create(user, createCartDto);
@@ -35,6 +41,12 @@ export class CartController {
   async findOne(@ReqUser() user:User, @Param('id') id: string) {
     return await this.cartService.findOne(user,+id);
   }
+
+  @Get('current')
+  async findCurrent(@ReqUser() user:User) {
+    return await this.cartService.findCurrent(user);
+  }
+
 
   // @Patch(':id')
   // update(@Param('id') id: string, @Body() updateCartDto: UpdateCartDto) {
