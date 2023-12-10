@@ -20,6 +20,7 @@ export class Product {
     mainPhoto: Media
     offers?: Offer[]
     totalOffers?: number
+    productCategoryId?: number
 
     constructor(product) {
         this.id = product.id
@@ -43,5 +44,6 @@ export class Product {
             this.hasOffer = true
         if(product?.ProductFavored?.length > 0)
             this.isFavorite = true
+        this.productCategoryId = product.productCategoryId
     }
 }

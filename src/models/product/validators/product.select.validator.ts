@@ -47,6 +47,7 @@ export function productSelectValidator(prop?: {userId?:number | undefined}) {
     },
     productCategory:{
         select:{
+            id:true,
             name:true,
             icon:{
                 select:{

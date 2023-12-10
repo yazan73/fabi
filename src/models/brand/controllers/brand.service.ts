@@ -26,7 +26,7 @@ export class BrandService {
         where:{
             id:brandId
         },
-        select:BrandSelectValidator()
+        select:BrandSelectValidator(),
     }))
   }
 }

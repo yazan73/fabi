@@ -1,0 +1,1 @@
+export const ConvertObjectToArray = (obj) => Object.keys(obj).map((key) => obj[key]);

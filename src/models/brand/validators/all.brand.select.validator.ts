@@ -18,7 +18,7 @@ export function BrandSelectValidator() {
       }
     },
     products:{
-      select:productSelectValidator(),
+      select:{...productSelectValidator(), productCategoryId:true},
       skip:0,
       take:50
     },

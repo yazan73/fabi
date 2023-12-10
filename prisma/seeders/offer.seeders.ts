@@ -14,8 +14,9 @@ export async function offerSeeder(prop:{prisma:PrismaService}){
             expiryDate: new Date('2024-02-01'),
             percentOffer: 15,
             products:{
-                connect:[{id:1,},{id:2},{id:3}]
-            }
+                connect:[{id:1,},{id:2},{id:3},{id:8}]
+            },
+            brandId:2
         },
       })
 
