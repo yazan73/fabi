@@ -19,6 +19,11 @@ export class CategoryController {
     return await this.categoryService.findAll();
   }
 
+  @Get('/:categoryId/brand/:brandId')
+  async getCategoryWithBrandId(@Param('categoryId') categoryId:string, @Param('brandId') brandId:string ){
+    return await this.categoryService.getCategoryWithBrandId(+categoryId,+brandId)
+  }
+
   // @Get(':id')
   // findOne(@Param('id') id: string) {
   //   return this.categoryService.findOne(+id);

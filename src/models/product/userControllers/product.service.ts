@@ -108,4 +108,20 @@ export class ProductService {
       select: productSelectValidator()
     })
   }
+
+  async getByCategoryAndBrandId(categoryId: number,brandId:number){
+    return this.prisma.product.findMany({
+      where:{
+        AND:[{
+          productCategoryId: categoryId
+        },
+        {
+          brandId: brandId
+        }
+      ]
+        
+      },
+      select: productSelectValidator()
+    }).then(products =>  products.map(product => new Product(product)))
+  }
 }

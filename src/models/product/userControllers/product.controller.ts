@@ -63,4 +63,10 @@ export class ProductController {
   async getByCategory(@Param('categoryId') categoryId: string) {
     return await this.productService.getByCategory(+categoryId)
   }
+
+  @AllowUnAuthorizedRequest()
+  @Get('category/:categoryId/brand/:brandId')
+  async getByCategoryAndBrand(@Param('categoryId') categoryId: string,@Param('brandId') brandId: string) {
+    return await this.productService.getByCategoryAndBrandId(+categoryId,+brandId)
+  }
 }
