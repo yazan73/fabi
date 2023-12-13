@@ -1,4 +1,5 @@
 import { Prisma } from '@prisma/client';
+import { currentOfferSelectValidator } from 'src/models/offer/validators/currentOffer.select.validator';
 import { productSelectValidator } from 'src/models/product/validators/product.select.validator';
 
 
@@ -8,14 +9,7 @@ export function BrandSelectValidator() {
     name:true,
     logo:true,
     offers:{
-      select:{
-        id:true,
-        name:true,
-        description:true,
-        products:{
-          select:productSelectValidator()
-        }
-      }
+      select: currentOfferSelectValidator()
     },
     products:{
       select:{...productSelectValidator(), productCategoryId:true},

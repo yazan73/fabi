@@ -37,7 +37,7 @@ export class Product {
         this.isFavorite = false
         this.hasOffer = false
         this.offers = product.offers
-        this.totalOffers = this.offers.reduce((current,offer)=> current + offer.percentOffer,0) || 0
+        this.totalOffers = this.offers?.reduce((current,offer)=> current + offer.percentOffer,0) || 0
         this.priceAfterOffer = this.price - (( this.price * this.totalOffers )/100)
         this.mainPhoto = product.mainPhoto
         if(this.offers?.length > 0) 

@@ -124,4 +124,15 @@ export class ProductService {
       select: productSelectValidator()
     }).then(products =>  products.map(product => new Product(product)))
   }
+
+  mostSellingProducts() {
+    return this.prisma.productCart.findMany({
+      distinct: 'productId' ,
+      select:{
+        product:{ select:productSelectValidator()}
+      },
+      skip: 0,
+      take: 50,
+    }).then(result => result.map(element => new Product(element.product)) )
+  }
 }

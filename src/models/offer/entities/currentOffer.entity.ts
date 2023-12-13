@@ -37,7 +37,7 @@ export class currentOfferDto {
         this.description = offer.description
         this.expiryDate = offer.expiryDate
         this.percentOffer = offer.percentOffer
-        this.products = offer.products 
+        this.products = offer?.products?.map(product => new Product(product)) 
     }
     
 }

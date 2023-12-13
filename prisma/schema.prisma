@@ -234,6 +234,7 @@ model Offer {
   expiryDate   DateTime
   brand        Brand?    @relation(fields: [brandId], references: [id])
   products     Product[]
+  createdAt    DateTime   @default(now())
 }
 
 model HomeSlider {

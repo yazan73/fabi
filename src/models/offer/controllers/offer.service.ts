@@ -17,4 +17,18 @@ export class OfferService {
             select: currentOfferSelectValidator()
         }).then(offers => offers.map(offer=>new currentOfferDto(offer)))
     }
+
+    async getNewestOffer(){
+        return this.prisma.offer.findMany({
+            where:{
+                expiryDate:{
+                    gt:new Date()
+                }
+            },
+            orderBy:{
+                createdAt: 'asc'
+            },
+            select: currentOfferSelectValidator()
+        }).then(offers=> offers.map(offer => new currentOfferDto(offer)))
+    }
 }

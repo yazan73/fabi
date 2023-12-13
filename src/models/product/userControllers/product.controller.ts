@@ -15,6 +15,12 @@ import { UserNotRequired } from 'src/models/auth/decorators/getUser.needless.dec
 export class ProductController {
   constructor(private readonly productService: ProductService) {}
   
+  
+  @Get('most-selling')
+  async getMostSelling(){
+    return await this.productService.mostSellingProducts()
+  }
+  
   @AllowUnAuthorizedRequest()
   @Get('filter')
   async getProductByParams(@Query() productFiltersKeys:ProductFiltersKeys){
@@ -69,4 +75,5 @@ export class ProductController {
   async getByCategoryAndBrand(@Param('categoryId') categoryId: string,@Param('brandId') brandId: string) {
     return await this.productService.getByCategoryAndBrandId(+categoryId,+brandId)
   }
+
 }
