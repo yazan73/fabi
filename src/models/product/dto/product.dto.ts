@@ -21,6 +21,7 @@ export class Product {
     offers?: Offer[]
     totalOffers?: number
     productCategoryId?: number
+    productReviews?: Object[]
 
     constructor(product) {
         this.id = product.id
@@ -45,5 +46,6 @@ export class Product {
         if(product?.ProductFavored?.length > 0)
             this.isFavorite = true
         this.productCategoryId = product.productCategoryId
+        this.productReviews = product.ReviewProduct
     }
 }

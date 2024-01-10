@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/common/prisma/services/prisma.service';
-import { productSelectValidator } from '../validators/product.select.validator';
+import { productSelectValidator, productWithReviewSelectValidator } from '../validators/product.select.validator';
 import { Pagination } from 'src/common/dtos/pagination.dto';
 import { ProductFiltersKeys } from '../dto/productByFilters.dto';
 import { User } from 'src/common/entities/user.entity';
@@ -28,7 +28,7 @@ export class ProductService {
       where: {
         id: prop.productId,
       },
-      select: productSelectValidator(),
+      select: productWithReviewSelectValidator(),
     }));
   }
 

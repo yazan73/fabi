@@ -13,6 +13,7 @@ import { CartModule } from 'src/models/cart/cart.module';
 import { OfferModule } from 'src/models/offer/offer.module';
 import { join } from 'path';
 import { ServeStaticModule } from '@nestjs/serve-static';
+import { ProductReviewModule } from 'src/models/product-review/product-review.module';
 
 @Module({
   imports: [
@@ -29,7 +30,8 @@ import { ServeStaticModule } from '@nestjs/serve-static';
     MediaModule,
     CategoryModule,
     CartModule,
-    OfferModule
+    OfferModule,
+    ProductReviewModule
   ],
   controllers: [AppController],
   providers: [],
