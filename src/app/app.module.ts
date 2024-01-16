@@ -15,6 +15,7 @@ import { join } from 'path';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { ProductReviewModule } from 'src/models/product-review/product-review.module';
 import { WholesaleRequestModule } from 'src/models/wholesale-request/wholesale-request.module';
+import { AffiliateMarketingModule } from 'src/models/affiliate-marketing/affiliate-marketing.module';
 
 @Module({
   imports: [
@@ -33,7 +34,8 @@ import { WholesaleRequestModule } from 'src/models/wholesale-request/wholesale-r
     CartModule,
     OfferModule,
     ProductReviewModule,
-    WholesaleRequestModule
+    WholesaleRequestModule,
+    AffiliateMarketingModule
   ],
   controllers: [AppController],
   providers: [],

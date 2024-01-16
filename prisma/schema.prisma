@@ -17,21 +17,22 @@ enum Gender {
 }
 
 model User {
-  id               Int                @id @default(autoincrement())
-  name             String
-  lastName         String?
-  gender           Gender
-  phone            String
-  birthday         DateTime
-  gallery          Gallery?
-  profileImage     ProfileImage?
-  emailCredential  emailCredential[]
-  Media            Media[]
-  ReviewProduct    ReviewProduct[]
-  Cart             Cart[]
-  ProductFavored   ProductFavored[]
-  Address          Address[]
-  WholesaleRequest WholesaleRequest[]
+  id                 Int                 @id @default(autoincrement())
+  name               String
+  lastName           String?
+  gender             Gender
+  phone              String
+  birthday           DateTime
+  gallery            Gallery?
+  profileImage       ProfileImage?
+  emailCredential    emailCredential[]
+  Media              Media[]
+  ReviewProduct      ReviewProduct[]
+  Cart               Cart[]
+  ProductFavored     ProductFavored[]
+  Address            Address[]
+  WholesaleRequest   WholesaleRequest[]
+  AffiliateMarketing AffiliateMarketing?
 }
 
 model emailCredential {
@@ -263,4 +264,14 @@ model WholesaleRequest {
 
   userId Int
   user   User @relation(fields: [userId], references: [id])
+}
+
+model AffiliateMarketing {
+  id            Int    @id @default(autoincrement())
+  code          String
+  codeUsedCount Int
+
+  userId        Int    @unique
+  user          User   @relation(fields: [userId], references: [id])
+  @@unique([userId, code])
 }
