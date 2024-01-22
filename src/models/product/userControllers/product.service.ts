@@ -135,4 +135,17 @@ export class ProductService {
       take: 50,
     }).then(result => result.map(element => new Product(element.product)) )
   }
+
+  search(key:string) {
+    return this.prisma.product.findMany({
+      where:{
+        OR:[
+          {name: {contains: key}},
+          {description: {contains: key}},
+          {productCategory :{name:{contains:key}}},
+        ]
+      },
+      select:productSelectValidator(),
+    }).then(result => result.map(element => new Product(element)) )
+  }
 }

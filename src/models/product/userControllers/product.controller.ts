@@ -16,10 +16,18 @@ export class ProductController {
   constructor(private readonly productService: ProductService) {}
   
   
+  @AllowUnAuthorizedRequest()
+  @Get('search/:key')
+  async search(@Param('key') key:string){
+    return await this.productService.search(key)
+  }
+  
   @Get('most-selling')
   async getMostSelling(){
     return await this.productService.mostSellingProducts()
   }
+
+  
   
   @AllowUnAuthorizedRequest()
   @Get('filter')
