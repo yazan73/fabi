@@ -52,6 +52,7 @@ model Address {
   city        String
   description String?
 
+  deliveryCost Float @default(0)
   userId Int
   user   User   @relation(fields: [userId], references: [id])
   Cart   Cart[]

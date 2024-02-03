@@ -7,7 +7,9 @@ import { GenerateUniqueNumberService } from '../service/generateUniqueNumber.ser
 import { GenerateNumberType } from '../entities/GenerateNumberType.entity';
 import { CartStatus } from '@prisma/client';
 import { allCartSelectValidator, cartSelectValidator } from '../validators/myCart.select.validator';
-import { addressSelectValidator } from 'src/models/user/validators/address.validator';
+import { NotFoundError } from 'rxjs';
+
+export const DEFAULT_DELIVERY_COST = 15000
 
 @Injectable()
 export class CartService {
@@ -21,8 +23,10 @@ export class CartService {
   }
 
   async create(user: User, createCartDto: CreateCartDto) {
-    // return await this.prisma.cart.deleteMany({where:{AND:[{ userId:user.id}, {status: CartStatus.INPROGRESS}] }}).then( async () => {
-      return await this.prisma.cart.create({
+    const address = await this.prisma.address.findFirst({where:{id: createCartDto.addressId}})
+    if (!address) throw new NotFoundError('')
+
+    return await this.prisma.cart.create({
         data: {
           totalPrice: this.calculateTotalPrice(createCartDto),
           address: {
@@ -42,9 +46,9 @@ export class CartService {
             },
           },
           status: CartStatus.INPROGRESS,
+          deliveryCost: address.deliveryCost || DEFAULT_DELIVERY_COST
         },
       });
-  // })
   }
 
   async findAllMyCart(user: User, status: CartStatus) {

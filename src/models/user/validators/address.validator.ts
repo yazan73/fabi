@@ -8,5 +8,6 @@ export function addressSelectValidator() {
     city:true,
     country:true,
     description:true,
+    deliveryCost:true
   });
 }
