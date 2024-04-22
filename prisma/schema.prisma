@@ -244,3 +244,10 @@ model HomeSlider {
   media         Media?  @relation(fields: [mediaId], references: [id])
   mediaId       Int?
 }
+
+model CallUs{
+  id            Int     @id @default(autoincrement())
+  name String
+  phoneNumber String
+  message String
+}
