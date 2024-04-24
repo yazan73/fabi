@@ -276,3 +276,9 @@ model AffiliateMarketing {
   user          User   @relation(fields: [userId], references: [id])
   @@unique([userId, code])
 }
+model CallUs{
+  id            Int     @id @default(autoincrement())
+  name String
+  phoneNumber String
+  message String
+}
