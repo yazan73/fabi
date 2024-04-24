@@ -3,6 +3,7 @@ import { CategoryService } from './category.service';
 import { CreateCategoryDto } from '../dto/create-category.dto';
 import { UpdateCategoryDto } from '../dto/update-category.dto';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { AllowUnAuthorizedRequest } from 'src/models/auth/guards/authentication.guard';
 
 @ApiTags('Product Category')
 @Controller('category')
@@ -13,7 +14,7 @@ export class CategoryController {
   // create(@Body() createCategoryDto: CreateCategoryDto) {
   //   return this.categoryService.create(createCategoryDto);
   // }
-
+  @AllowUnAuthorizedRequest()
   @Get()
   async findAll() {
     return await this.categoryService.findAll();
