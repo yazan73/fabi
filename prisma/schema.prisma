@@ -282,3 +282,12 @@ model CallUs{
   phoneNumber String
   message String
 }
+
+model JoinUs{
+  id  Int @id @default(autoincrement())
+  brandName String
+  brandOwnerName String
+  phone  String
+  branchNumber Int
+  address String
+}

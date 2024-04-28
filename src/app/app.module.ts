@@ -16,6 +16,7 @@ import { ProductReviewModule } from 'src/models/product-review/product-review.mo
 import { WholesaleRequestModule } from 'src/models/wholesale-request/wholesale-request.module';
 import { AffiliateMarketingModule } from 'src/models/affiliate-marketing/affiliate-marketing.module';
 import { CallUsModule } from 'src/models/call-us/call-us.module';
+import { JoinUsModule } from 'src/models/join-us/join-us.module';
 
 @Module({
   imports: [
@@ -37,6 +38,7 @@ import { CallUsModule } from 'src/models/call-us/call-us.module';
     WholesaleRequestModule,
     AffiliateMarketingModule,
     CallUsModule,
+    JoinUsModule,
     OfferModule
   ],
   controllers: [AppController],
