@@ -82,6 +82,41 @@ export async function productSeeder(prop:{prisma:PrismaService}){
         update: {},
         create: {
             id:3,
+            name: 'boots',
+            price: 200,
+            wholesale: 200,
+            brandId: 3,
+            rate: 2,
+            productCategoryId: 1,
+            quantity: 90,
+            mainPhotoId: 12,
+            productDetails:{
+                createMany:{
+                    data:[
+                    {
+                        color: "BLACK",
+                        size: ['M',"S","XXL"],
+                        mediaId: 12
+                    },
+                    {
+                        color: "WHITE",
+                        size: ['L',"S","M","XXXL",'XXXXXL'],
+                        mediaId: 12
+                    }
+                ]
+                }
+            }
+        },
+      })
+
+
+      await prop.prisma.product.upsert({
+        where:{
+            id:3
+        },
+        update: {},
+        create: {
+            id:3,
             name: 'جينز',
             price: 200,
             wholesale: 200,

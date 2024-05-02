@@ -282,3 +282,12 @@ model AffiliateMarketing {
   user          User   @relation(fields: [userId], references: [id])
   @@unique([userId, code])
 }
+
+model JoinUs{
+  id  Int @id @default(autoincrement())
+  brandName String
+  brandOwnerName String
+  phone  String
+  branchNumber Int
+  address String
+}

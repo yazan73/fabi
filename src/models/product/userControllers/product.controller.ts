@@ -21,7 +21,7 @@ export class ProductController {
   async search(@Param('key') key:string){
     return await this.productService.search(key)
   }
-  
+  @AllowUnAuthorizedRequest()
   @Get('most-selling')
   async getMostSelling(){
     return await this.productService.mostSellingProducts()
