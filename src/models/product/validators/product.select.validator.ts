@@ -47,6 +47,7 @@ export function productSelectValidator(prop?: {userId?:number | undefined}) {
     },
     productCategory:{
         select:{
+            id:true,
             name:true,
             icon:{
                 select:{
@@ -62,3 +63,31 @@ export function productSelectValidator(prop?: {userId?:number | undefined}) {
     ProductFavored: { where: { userId: prop?.userId ? prop.userId : 1000  } },
   });
 }
+
+
+export function productWithReviewSelectValidator(prop?: {userId?:number | undefined}) {
+    return Prisma.validator<Prisma.ProductSelect>()({
+        ...productSelectValidator(),
+        ReviewProduct:{
+            select:{
+                id:true,
+                description:true,
+                rate:true,
+                owner:{
+                    select:{
+                        id:true,
+                        name:true,
+                        lastName:true,
+                        profileImage: {
+                            select:{
+                            media: {
+                                select: selectMediaValidator()
+                            }
+                        }},
+
+                    }
+                }
+            }
+        }
+    });
+  }

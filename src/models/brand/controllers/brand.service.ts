@@ -3,6 +3,7 @@ import { PrismaService } from 'src/common/prisma/services/prisma.service';
 import { BrandSelectValidator } from '../validators/all.brand.select.validator';
 import { GeneralBrand } from '../dto/getAllBrand.dto';
 import { BrandsSelectValidator } from '../validators/brand.select.validator copy';
+import { Brand } from '../dto/brand.dto';
 
 @Injectable()
 export class BrandService {
@@ -21,11 +22,11 @@ export class BrandService {
   }
 
   async getBrandWithProducts (brandId:number){
-    return await this.prisma.brand.findFirst({
+    return new Brand ( await this.prisma.brand.findFirst({
         where:{
             id:brandId
         },
-        select:BrandSelectValidator()
-    })
+        select:BrandSelectValidator(),
+    }))
   }
 }

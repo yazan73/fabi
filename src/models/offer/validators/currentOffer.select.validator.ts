@@ -11,7 +11,7 @@ export function currentOfferSelectValidator() {
     expiryDate:true,
     percentOffer: true,
     products: {
-        select: {...productSelectValidator(), offers:false}
+        select: {...productSelectValidator()}
     }
   });
 }

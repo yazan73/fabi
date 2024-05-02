@@ -20,8 +20,44 @@ export async function userSeeder(prop:{prisma:PrismaService,passwordService:Pass
                 password: await prop.passwordService.hash('password')
               }
             },
-            profileImage:{
-              create:{}
+            Address:{
+               create:{
+                city: 'دمشق',
+                country: 'سوريا',
+                name: 'منزل',
+                description: 'جسر الابيض - جامع جسر الابيض',
+                deliveryCost: 12500
+               }
+            }
+        },
+      })
+
+
+      await prop.prisma.user.upsert({
+        where:{
+            id:2
+        },
+        update: {},
+        create: {
+            id:2,
+            birthday: new Date(),
+            gender: Gender.MALE,
+            name: 'yazan',
+            phone: '09223131',
+            emailCredential:{
+              create:{
+                email: 'yazan@fabi.com',
+                password: await prop.passwordService.hash('password')
+              }
+            },
+            Address:{
+               create:{
+                city: 'دمشق',
+                country: 'سوريا',
+                name: 'منزل',
+                description: 'ببيلا - جامع الكريم',
+                deliveryCost: 30000
+               }
             }
         },
       })

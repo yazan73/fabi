@@ -17,20 +17,22 @@ enum Gender {
 }
 
 model User {
-  id              Int               @id @default(autoincrement())
-  name            String
-  lastName        String?
-  gender          Gender
-  phone           String
-  birthday        DateTime
-  gallery         Gallery?
-  profileImage    ProfileImage?
-  emailCredential emailCredential[]
-  Media           Media[]
-  ReviewProduct   ReviewProduct[]
-  Cart            Cart[]
-  ProductFavored  ProductFavored[]
-  Address         Address[]
+  id                 Int                 @id @default(autoincrement())
+  name               String
+  lastName           String?
+  gender             Gender
+  phone              String
+  birthday           DateTime
+  gallery            Gallery?
+  profileImage       ProfileImage?
+  emailCredential    emailCredential[]
+  Media              Media[]
+  ReviewProduct      ReviewProduct[]
+  Cart               Cart[]
+  ProductFavored     ProductFavored[]
+  Address            Address[]
+  WholesaleRequest   WholesaleRequest[]
+  AffiliateMarketing AffiliateMarketing?
 }
 
 model emailCredential {
@@ -50,6 +52,7 @@ model Address {
   city        String
   description String?
 
+  deliveryCost Float @default(0)
   userId Int
   user   User   @relation(fields: [userId], references: [id])
   Cart   Cart[]
@@ -211,10 +214,10 @@ model ProductCart {
   productId Int
   product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
 
-  quantity     Int
-  price Float?
-  size         Size?
-  color        String?
+  quantity Int
+  price    Float?
+  size     Size?
+  color    String?
 }
 
 model ProductFavored {
@@ -234,6 +237,7 @@ model Offer {
   expiryDate   DateTime
   brand        Brand?    @relation(fields: [brandId], references: [id])
   products     Product[]
+  createdAt    DateTime  @default(now())
 }
 
 model HomeSlider {
@@ -250,4 +254,31 @@ model CallUs{
   name String
   phoneNumber String
   message String
+}
+enum WholesaleRequestType {
+  VENDER
+  BUYER
+}
+
+model WholesaleRequest {
+  id                 Int                  @id @default(autoincrement())
+  brandName          String
+  brandNameOwnerName String
+  address            String
+  phoneNumber        String
+  branchesNumber     Int
+  type               WholesaleRequestType
+
+  userId Int
+  user   User @relation(fields: [userId], references: [id])
+}
+
+model AffiliateMarketing {
+  id            Int    @id @default(autoincrement())
+  code          String
+  codeUsedCount Int
+
+  userId        Int    @unique
+  user          User   @relation(fields: [userId], references: [id])
+  @@unique([userId, code])
 }

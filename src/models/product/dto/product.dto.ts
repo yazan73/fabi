@@ -1,4 +1,4 @@
-import { Media } from "@prisma/client"
+import { Media, Offer } from "@prisma/client"
 import { GeneralBrand } from "src/models/brand/dto/getAllBrand.dto"
 
 export class Product {
@@ -8,6 +8,7 @@ export class Product {
     quantity: number
     wholesale: number 
     price: number
+    priceAfterOffer?: number
     rate: number
     brand: GeneralBrand
     productDetails
@@ -17,6 +18,10 @@ export class Product {
     isFavorite: boolean
     hasOffer: boolean
     mainPhoto: Media
+    offers?: Offer[]
+    totalOffers?: number
+    productCategoryId?: number
+    productReviews?: Object[]
 
     constructor(product) {
         this.id = product.id
@@ -32,10 +37,15 @@ export class Product {
         this.productCategory = product.productCategory
         this.isFavorite = false
         this.hasOffer = false
+        this.offers = product.offers
+        this.totalOffers = this.offers?.reduce((current,offer)=> current + offer.percentOffer,0) || 0
+        this.priceAfterOffer = this.price - (( this.price * this.totalOffers )/100)
         this.mainPhoto = product.mainPhoto
-        if(product?.Offers?.length > 0) 
+        if(this.offers?.length > 0) 
             this.hasOffer = true
         if(product?.ProductFavored?.length > 0)
             this.isFavorite = true
+        this.productCategoryId = product.productCategoryId
+        this.productReviews = product.ReviewProduct
     }
 }

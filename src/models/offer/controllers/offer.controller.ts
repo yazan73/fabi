@@ -14,4 +14,10 @@ export class OfferController {
   async getCurrentOffer (){
     return await this.offerService.getCurrentOffers()
   }
+
+  
+  @Get('newest')
+  async getNewestOffer (){
+    return await this.offerService.getNewestOffer()
+  }
 }

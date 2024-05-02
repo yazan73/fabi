@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/common/prisma/services/prisma.service';
-import { productSelectValidator } from '../validators/product.select.validator';
+import { productSelectValidator, productWithReviewSelectValidator } from '../validators/product.select.validator';
 import { Pagination } from 'src/common/dtos/pagination.dto';
 import { ProductFiltersKeys } from '../dto/productByFilters.dto';
 import { User } from 'src/common/entities/user.entity';
@@ -28,7 +28,7 @@ export class ProductService {
       where: {
         id: prop.productId,
       },
-      select: productSelectValidator(),
+      select: productWithReviewSelectValidator(),
     }));
   }
 
@@ -107,5 +107,45 @@ export class ProductService {
       },
       select: productSelectValidator()
     })
+  }
+
+  async getByCategoryAndBrandId(categoryId: number,brandId:number){
+    return this.prisma.product.findMany({
+      where:{
+        AND:[{
+          productCategoryId: categoryId
+        },
+        {
+          brandId: brandId
+        }
+      ]
+        
+      },
+      select: productSelectValidator()
+    }).then(products =>  products.map(product => new Product(product)))
+  }
+
+  mostSellingProducts() {
+    return this.prisma.productCart.findMany({
+      distinct: 'productId' ,
+      select:{
+        product:{ select:productSelectValidator()}
+      },
+      skip: 0,
+      take: 50,
+    }).then(result => result.map(element => new Product(element.product)) )
+  }
+
+  search(key:string) {
+    return this.prisma.product.findMany({
+      where:{
+        OR:[
+          {name: {contains: key}},
+          {description: {contains: key}},
+          {productCategory :{name:{contains:key}}},
+        ]
+      },
+      select:productSelectValidator(),
+    }).then(result => result.map(element => new Product(element)) )
   }
 }

@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { UserProfile } from '../dto/profile.dto';
 import { UpdateUserDto } from '../dto/user.update.dto';
 import { PrismaService } from 'src/common/prisma/services/prisma.service';
@@ -73,17 +73,27 @@ export class UserService {
     }
 
     async createAddress(prop:{userId:number,createAddress:CreateAddress}){
-        await this.prisma.address.create({
+        return await this.prisma.address.create({
             data:{
                 city: prop.createAddress.city ,
-                country: prop.createAddress.city,
-                name: prop.createAddress.city, 
-                description: prop.createAddress.city,
+                country: prop.createAddress.country,
+                name: prop.createAddress.name, 
+                description: prop.createAddress.description,
                 user:{
                     connect:{
                         id :prop.userId
                     }
                 }
+            }
+        }).catch((error)=>{
+            throw new BadRequestException(error)
+        })
+    }
+
+    async deleteAddress(prop:{userId:number,addressId:number}){
+        await this.prisma.address.deleteMany({
+            where:{
+                AND:[{userId:prop.userId, id:prop.addressId}]
             }
         })
     }

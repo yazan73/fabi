@@ -11,9 +11,11 @@ import { UserModule } from 'src/models/user/user.module';
 import { AppController } from './app.controller';
 import { CartModule } from 'src/models/cart/cart.module';
 import { OfferModule } from 'src/models/offer/offer.module';
-import { join } from 'path';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { CallUsModule } from 'src/models/call-us/call-us.module';
+import { ProductReviewModule } from 'src/models/product-review/product-review.module';
+import { WholesaleRequestModule } from 'src/models/wholesale-request/wholesale-request.module';
+import { AffiliateMarketingModule } from 'src/models/affiliate-marketing/affiliate-marketing.module';
 
 @Module({
   imports: [
@@ -31,7 +33,10 @@ import { CallUsModule } from 'src/models/call-us/call-us.module';
     CategoryModule,
     CartModule,
     CallUsModule,
-    OfferModule
+    OfferModule,
+    ProductReviewModule,
+    WholesaleRequestModule,
+    AffiliateMarketingModule,
   ],
   controllers: [AppController],
   providers: [],

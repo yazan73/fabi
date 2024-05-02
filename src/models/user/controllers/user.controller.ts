@@ -18,9 +18,7 @@ import { User } from 'src/common/entities/user.entity';
 import { CreateAddress } from '../dto/adddres-create.dto';
 import { AllowUnAuthorizedRequest } from 'src/models/auth/guards/authentication.guard';
 
-// @ApiBearerAuth()
-@AllowUnAuthorizedRequest()
-
+@ApiBearerAuth()
 @ApiTags('User')
 @Controller('user')
 export class UserController {
@@ -72,5 +70,10 @@ export class UserController {
   @Post('address')
   async address(@Body() createAddress:CreateAddress, @ReqUser() user:User){
     return await this.userService.createAddress({userId:user.id,createAddress})
+  }
+
+  @Delete('address/:addressId')
+  async deleteAddress(@Param('addressId') addressId:string, @ReqUser() user:User){
+    return await this.userService.deleteAddress({userId:user.id,addressId: +addressId})
   }
 }
