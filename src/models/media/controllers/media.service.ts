@@ -23,7 +23,7 @@ export class MediaService {
     let imageProp;
     if (file.mimetype.match(/(image|video)/))
       imageProp = await sharp(file.path).metadata();
-
+    
     const url = this.constructUrlForFile(file.filename);
     return await this.prisma.media.create({
       data: {
@@ -31,11 +31,6 @@ export class MediaService {
         url:url,
         size:file.size,
         type: MediaType.IMAGE,
-        // user:{
-        //   connect:{
-        //     id:user?.id ?? 0
-        //   }
-        // }
       },
     });
   }
