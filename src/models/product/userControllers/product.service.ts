@@ -101,20 +101,21 @@ export class ProductService {
     });
   }
   async deleteFavored(prop: { user: User; productId: number }) {
-    await this.prisma.productFavored.delete({
-      data: {
-        user: {
-          connect: {
-            id: prop.user.id,
-          },
-        },
-        product: {
-          connect: {
-            id: prop.productId,
-          },
-        },
+    await this.prisma.productFavored.deleteMany({
+      where: {
+        userId: prop.user.id,
+        productId: prop.productId,
+
       },
     });
+  }
+  async getFavoredByProductId(prop: { user: User; productId: number }){
+    return await this.prisma.productFavored.findFirst({
+      where: {
+        userId: prop.user.id,
+        productId: prop.productId,
+      },
+    })
   }
 
   async getByCategory(categoryId: number){
