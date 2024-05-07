@@ -5,11 +5,13 @@ import { Pagination } from 'src/common/dtos/pagination.dto';
 import { ProductFiltersKeys } from '../dto/productByFilters.dto';
 import { User } from 'src/common/entities/user.entity';
 import { Product } from '../dto/product.dto';
+import { CreateProductDto, UpdateProductDto } from '../dto/create-product.dto';
 
 @Injectable()
 export class ProductService {
   constructor(private prisma: PrismaService) {}
 
+  
   async getNewProducts(prop: { pagination: Pagination, user:User }) {
     return (
       await this.prisma.product.findMany({
@@ -79,6 +81,7 @@ export class ProductService {
         },
       })
     ).map((result) => {
+      console.log(result)
       return result.product;
     });
   }
@@ -98,6 +101,22 @@ export class ProductService {
         },
       },
     });
+  }
+  async deleteFavored(prop: { user: User; productId: number }) {
+    await this.prisma.productFavored.deleteMany({
+      where: {
+        userId: prop.user.id,
+        productId: prop.productId,
+      },
+    });
+  }
+  async getFavoredByProductId(prop: { user: User; productId: number }){
+    return await this.prisma.productFavored.findFirst({
+      where: {
+        userId: prop.user.id,
+        productId: prop.productId,
+      },
+    })
   }
 
   async getByCategory(categoryId: number){
