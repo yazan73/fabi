@@ -10,12 +10,12 @@ const prisma = new PrismaService()
 const passwordService = new PasswordService()
 export async function main() {
   const passwordService = new PasswordService()
-  await userSeeder({prisma,passwordService})
-  await mediaSeeder({prisma})
-  await categorySeeder({prisma})
-  await brandSeeder({prisma})
-  await productSeeder({prisma})
-  await offerSeeder({prisma})
+  // await userSeeder({prisma,passwordService})
+  // await mediaSeeder({prisma})
+  // await categorySeeder({prisma})
+  // await brandSeeder({prisma})
+  // await productSeeder({prisma})
+  // await offerSeeder({prisma})
 }
 main()
   .then(async () => {
