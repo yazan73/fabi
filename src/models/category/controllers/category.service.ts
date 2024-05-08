@@ -1,17 +1,18 @@
 import { Injectable } from '@nestjs/common';
 import { CreateCategoryDto } from '../dto/create-category.dto';
-import { UpdateCategoryDto } from '../dto/update-category.dto';
+import { CreateProductCategoryDto, UpdateCategoryDto, UpdateProductCategoryDto } from '../dto/update-category.dto';
 import { PrismaService } from 'src/common/prisma/services/prisma.service';
-import { ProductCategory } from '../dto/category.dto';
+
 import { productCategorySelectValidator } from '../validators/product.select.validator';
 import { BrandsSelectValidator } from 'src/models/brand/validators/brand.select.validator copy';
+import { Prisma, ProductCategory } from '@prisma/client';
 
 @Injectable()
 export class CategoryService {
   constructor(private prisma: PrismaService) {}
 
   async getCategoryWithBrandId(categoryId:number, brandId:number) {
-    let productCountInCategoryAndBrand =  (await this.prisma.product.aggregate({
+    const productCountInCategoryAndBrand =  (await this.prisma.product.aggregate({
       where: {
         AND:[
           {productCategoryId: categoryId},
@@ -23,29 +24,32 @@ export class CategoryService {
       }
     }))._count
 
-    let category = await this.prisma.productCategory.findFirst({where:{id:categoryId},select:productCategorySelectValidator()})
-    let brand = await this.prisma.brand.findFirst({where:{id:brandId},select:BrandsSelectValidator()})
+    const category = await this.prisma.productCategory.findFirst({where:{id:categoryId},select:productCategorySelectValidator()})
+    const brand = await this.prisma.brand.findFirst({where:{id:brandId},select:BrandsSelectValidator()})
 
     return {category,brand, productCount:productCountInCategoryAndBrand._all}
   }
 
-  async findAll() {
-    return (await this.prisma.productCategory.findMany({
-      select:productCategorySelectValidator()
-    })).map(
-      (category) => new ProductCategory(category),
-    );
+  async create(data: CreateProductCategoryDto): Promise<ProductCategory> {
+    return this.prisma.productCategory.create({ data });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} category`;
+  async findAll(): Promise<ProductCategory[]> {
+    return this.prisma.productCategory.findMany();
   }
 
-  update(id: number, updateCategoryDto: UpdateCategoryDto) {
-    return `This action updates a #${id} category`;
+  async findOne(id: number): Promise<ProductCategory> {
+    return this.prisma.productCategory.findUnique({ where: { id } });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} category`;
+  async update(id: number, data: UpdateProductCategoryDto): Promise<ProductCategory> {
+    return this.prisma.productCategory.update({
+      where: { id },
+      data,
+    });
+  }
+
+  async remove(id: number): Promise<ProductCategory> {
+    return this.prisma.productCategory.delete({ where: { id } });
   }
 }
