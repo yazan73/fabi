@@ -35,7 +35,11 @@ export class CategoryService {
   }
 
   async findAll(): Promise<ProductCategory[]> {
-    return this.prisma.productCategory.findMany();
+    return this.prisma.productCategory.findMany({select:{ id:true,
+      name:true,
+      iconId:true,
+      icon:true,
+    }});
   }
 
   async findOne(id: number): Promise<ProductCategory> {

@@ -44,6 +44,7 @@ export class BrandController {
     return this.brandService.update(+id, brandData);
   }
 
+  @AllowUnAuthorizedRequest()
   @Delete(':id')
   remove(@Param('id') id: string): Promise<BrandModel> {
     return this.brandService.remove(+id);
