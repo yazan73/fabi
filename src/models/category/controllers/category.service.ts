@@ -29,7 +29,14 @@ export class CategoryService {
 
     return {category,brand, productCount:productCountInCategoryAndBrand._all}
   }
-
+  async getCategoriesWithProducts(){
+    return  this.prisma.productCategory.findMany({select:{ id:true,
+      name:true,
+      iconId:true,
+      icon:true,
+      products:true
+    }});
+  }
   async create(data: CreateProductCategoryDto): Promise<ProductCategory> {
     return this.prisma.productCategory.create({ data });
   }

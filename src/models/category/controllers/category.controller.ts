@@ -21,6 +21,10 @@ export class CategoryController {
   async getCategoryWithBrandId(@Param('categoryId') categoryId:string, @Param('brandId') brandId:string ){
     return await this.categoryService.getCategoryWithBrandId(+categoryId,+brandId)
   }
+  @Get('/products')
+  async getCategoryWithProducts(){
+    return await this.categoryService.getCategoriesWithProducts()
+  }
 
   @Post()
   create(@Body() createProductCategoryDto: CreateProductCategoryDto) {
