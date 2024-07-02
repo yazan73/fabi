@@ -36,19 +36,8 @@ export class ProductAdminService {
   async create(createProductDto: CreateProductDto) {
     console.log(createProductDto)
     try {
-      return await this.prisma.product.create({
-        data: {
-          name: createProductDto.name,
-          price: createProductDto.price,
-          wholesale: createProductDto.wholesale,
-          brandId: 1,
-          isNew: true,
-          description:'',
-          mainPhotoId:2,
-          productCategoryId: 1
-        }
-      })
-      // return this.prisma.product.create({ data: {id:await this.prisma.product.count() + 1,...createProductDto} });
+      
+      return this.prisma.product.create({ data:createProductDto});
     } catch (error) {
       console.log(error)
     }
