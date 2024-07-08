@@ -55,8 +55,11 @@ export class AuthService {
         },
       })
       .then(async (emailCredential) => {
-        if (emailCredential)
+        if (emailCredential){
+          console.log(emailCredential)
+
           throw new BadRequestException('البريد الالكتروني مستخدم حاليا.');
+        }
         return this.prisma.user
           .create({
             data: {
