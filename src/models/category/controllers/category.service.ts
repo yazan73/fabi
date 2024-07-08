@@ -38,6 +38,7 @@ export class CategoryService {
     }});
   }
   async create(data: CreateProductCategoryDto): Promise<ProductCategory> {
+    console.log(data)
     return this.prisma.productCategory.create({ data });
   }
 

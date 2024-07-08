@@ -47,12 +47,12 @@ export class MediaController {
   async uploadFile(
     @UploadedFile(
       new ParseFilePipeBuilder()
-        .addFileTypeValidator({
-          fileType: /[\/.](jpeg|png|pdf)$/i,
-        })
-        .addMaxSizeValidator({
-          maxSize: 1000 * 1000 * 5,
-        })
+        // .addFileTypeValidator({
+        //   fileType: /[\/.](jpeg|png|pdf)$/i,
+        // })
+        // .addMaxSizeValidator({
+        //   maxSize: 1000 * 1000 * 5,
+        // })
         .build({
           errorHttpStatusCode: HttpStatus.UNPROCESSABLE_ENTITY,
         }),

@@ -2,8 +2,10 @@ import { Controller, Get, Post, Body, Param, Delete } from '@nestjs/common';
 import { JoinUsService } from './join-us.service';
 import { CreateJoinUsDto } from '../dto/create-join-us.dto';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { AllowUnAuthorizedRequest } from 'src/models/auth/guards/authentication.guard';
 
-@ApiBearerAuth()
+// @ApiBearerAuth()
+@AllowUnAuthorizedRequest()
 @ApiTags('Join Us')
 @Controller('join-us')
 export class JoinUsController {
@@ -23,13 +25,17 @@ export class JoinUsController {
   
   @Delete(':id')
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  remove(@Param('id') id: string) {
-   
+  async remove(@Param('id') id: string) {
+    return await this.joinUsService.remove(+id)
   }
 
   @Get(':id')
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  findOne(@Param('id') id: string) {
-   
+  async findOne(@Param('id') id: string) {
+   return this.joinUsService.findOne(+id);
+  }
+  @Get()
+  async getAllJoinUsApplication(){
+    return await this.joinUsService.getAll()
   }
 }

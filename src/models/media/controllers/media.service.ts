@@ -11,7 +11,7 @@ export class MediaService {
   constructor(private prisma: PrismaService) {}
 
   constructUrlForFile(fileName: string) {
-    let configService = new ConfigService()
+    const configService = new ConfigService()
     const origin = `${configService.get('PROTOCOL')}://${configService.get('IP_ADDRESS')}`;
     const url = new URL(origin);
     url.port = configService.get('PORT');
@@ -20,9 +20,9 @@ export class MediaService {
   }
 
   async uploadImage(file: Express.Multer.File,user:User) {
-    let imageProp;
-    if (file.mimetype.match(/(image|video)/))
-      imageProp = await sharp(file.path).metadata();
+    // let imageProp;
+    // if (file.mimetype.match(/(image|video)/))
+    //   imageProp = await sharp(file.path).metadata();
 
     const url = this.constructUrlForFile(file.filename);
     return await this.prisma.media.create({
